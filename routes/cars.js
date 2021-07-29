@@ -11,6 +11,15 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:carID", async (req, res) => {
+    try {
+        const car = await Car.findById(req.params.carID);
+        res.json(car);
+    } catch (error) {
+        res.json({ message: error });
+    }
+});
+
 router.post("/", async (req, res) => {
     const car = new Car({
         model: req.body.model,
@@ -24,6 +33,36 @@ router.post("/", async (req, res) => {
         res.json(savedCar);
     } catch (err) {
         res.json({ message: err })
+    }
+});
+
+router.delete("/:carID", async (req, res) => {
+    try {
+        const removedCar = await Car.deleteOne({ _id: req.params.carID });
+        res.json(removedCar);
+    } catch (error) {
+        res.json({ message: error });
+    }
+});
+
+router.patch("/:carID", async (req, res) => {
+    try {
+        const updatedCar = await Car.updateOne(
+            { _id: req.params.carID },  // _id - this is how ID looks in DB;
+            {
+                $set:
+                {
+                    model: req.body.model,
+                    description: req.body.description,
+                    color: req.body.color,
+                    productionDate: req.body.productionDate,
+                    image: req.body.image
+                }
+            }
+        );
+        res.json(updatedCar);
+    } catch (error) {
+        res.json({ message: error });
     }
 });
 
