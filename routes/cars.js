@@ -25,8 +25,10 @@ router.post("/", async (req, res) => {
         model: req.body.model,
         description: req.body.description,
         color: req.body.color,
+        transmission: req.body.transmission,
         productionDate: req.body.productionDate,
-        image: req.body.image
+        image: req.body.image,
+        liked: req.body.liked
     });
     try {
         const savedCar = await car.save();
@@ -56,7 +58,8 @@ router.patch("/:carID", async (req, res) => {
                     description: req.body.description,
                     color: req.body.color,
                     productionDate: req.body.productionDate,
-                    image: req.body.image
+                    image: req.body.image,
+                    liked: req.body.liked
                 }
             }
         );
