@@ -65,10 +65,10 @@
   {
     "model": "BMW",
     "description": "New",
-    "color": "Yellow",
+    "color": "White",
     "transmission": "Manual",
-    "productionDate": "1995-03-11T00:00:00.000Z",
-    "image": "https://images.pexels.com/photos/8340650/pexels-photo-8340650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "productionDate": "2015-03-11T00:00:00.000Z",
+    "image": "https://images.pexels.com/photos/707046/pexels-photo-707046.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     "liked": false
   },
   {

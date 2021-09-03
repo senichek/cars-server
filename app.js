@@ -23,9 +23,10 @@ console.log("DB connection status: " + mongoose.connection.readyState);
 
 // Import routes;
 const carsRoute = require("./routes/cars");
+const usersRoute = require("./routes/users")
 
-// Every time you go to /posts the postsRoute will be used;
+// Every time you go to /cars the carsRoute will be used;
 app.use("/cars", carsRoute);
-
+app.use("/users", usersRoute);
 
 app.listen(3000);
