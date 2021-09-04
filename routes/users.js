@@ -25,8 +25,8 @@ router.post("/", async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         // Every new registered user will have the default role of User
-        roles: ['admin', 'user']
-        
+        roles: ['user'],
+        favCars: req.body.favCars
     });
     try {
         const savedUser = await user.save();
@@ -54,6 +54,7 @@ router.patch("/:userID", async (req, res) => {
                 {
                     email: req.body.email,
                     password: req.body.password,
+                    favCars: req.body.favCars
                 }
             }
         );
