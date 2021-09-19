@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
+const passport = require("passport");
 
 router.get("/", async (req, res) => {
     try {
@@ -21,6 +23,11 @@ router.get("/:userID", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+    const emailExists = await User.findOne({email: req.body.email});
+    if (emailExists) {
+        return res.status(400).send("Email already exists;");
+    }
+
     const user = new User({
         email: req.body.email,
         password: req.body.password,
@@ -29,10 +36,13 @@ router.post("/", async (req, res) => {
         favCars: req.body.favCars
     });
     try {
+        user.password = await bcrypt.hash(user.password, 10);
         const savedUser = await user.save();
         res.json(savedUser);
+        res.redirect('/login');
     } catch (err) {
-        res.json({ message: err })
+        res.json({ message: err });
+        res.redirect('/register');
     }
 });
 
@@ -53,7 +63,7 @@ router.patch("/:userID", async (req, res) => {
                 $set:
                 {
                     email: req.body.email,
-                    password: req.body.password,
+                    password: await bcrypt.hash(req.body.password, 10),
                     favCars: req.body.favCars
                 }
             }
